@@ -87,7 +87,7 @@ pub fn main() void {
     // Let's assign the std.debug.print function to a const named
     // "print" so that we can use this new name later!
 
-    const print = ???;
+    const print = std.debug.print;
 
     // Now let's look at assigning and pointing to values in Zig.
     //
@@ -103,6 +103,7 @@ pub fn main() void {
     // your program's output for this one compared to the other two
     // assignments below!
 
+    // the default behaviour is copy. just like C++ but the opposite of Rust
     var glorp_access1: Character = glorp;
     glorp_access1.gold = 111;
     print("1:{}!. ", .{glorp.gold == glorp_access1.gold});
@@ -114,12 +115,13 @@ pub fn main() void {
     //     because const values are immutable!
     //
     // "glorp_access2" will do what we want. It points to the original
-    // glorp's address. Also remember that we get one implicit
-    // dereference with struct fields, so accessing the "gold" field
+    // glorp's address. Also remember that we get one [implicit
+    // dereference] with struct fields, so accessing the "gold" field
     // from glorp_access2 looks just like accessing it from glorp
     // itself.
 
     var glorp_access2: *Character = &glorp;
+    // this implicitly dereferences the pointer acts like Go's
     glorp_access2.gold = 222;
     print("2:{}!. ", .{glorp.gold == glorp_access2.gold});
 
@@ -129,6 +131,7 @@ pub fn main() void {
     // pointer can't change what it's POINTING AT, but the value at
     // the address it points to is still mutable! So we CAN change it.
 
+    // You just can't reassign a const pointer.
     const glorp_access3: *Character = &glorp;
     glorp_access3.gold = 333;
     print("3:{}!. ", .{glorp.gold == glorp_access3.gold});
@@ -152,13 +155,13 @@ pub fn main() void {
     print("XP before:{}, ", .{glorp.experience});
 
     // Fix 1 of 2 goes here:
-    levelUp(glorp, reward_xp);
+    levelUp(&glorp, reward_xp);
 
     print("after:{}.\n", .{glorp.experience});
 }
 
 // Fix 2 of 2 goes here:
-fn levelUp(character_access: Character, xp: u32) void {
+fn levelUp(character_access: *Character, xp: u32) void {
     character_access.experience += xp;
 }
 
@@ -182,3 +185,5 @@ fn levelUp(character_access: Character, xp: u32) void {
 // Whew! This has been a lot of information. You'll be pleased to know
 // that the next exercise gets us back to learning Zig language
 // features we can use right away to do more things!
+// 
+// I know this shit in C++

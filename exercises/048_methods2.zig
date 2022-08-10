@@ -4,6 +4,7 @@
 //
 const std = @import("std");
 
+// Fuck OO
 const Elephant = struct {
     letter: u8,
     tail: ?*Elephant = null,
@@ -12,6 +13,7 @@ const Elephant = struct {
     // New Elephant methods!
     pub fn getTail(self: *Elephant) *Elephant {
         return self.tail.?; // Remember, this means "orelse unreachable"
+        // not the null access operator in dart/typescript
     }
 
     pub fn hasTail(self: *Elephant) bool {
@@ -54,7 +56,7 @@ fn visitElephants(first_elephant: *Elephant) void {
 
         // This gets the next elephant or stops.
         if (e.hasTail()) {
-            e = e.???; // Which method do we want here?
+            e = e.getTail(); // Which method do we want here?
         } else {
             break;
         }

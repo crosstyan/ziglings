@@ -35,11 +35,21 @@ pub fn main() void {
     // at compile time.
     //
     // Please fix this to loop once per "instruction":
-    ??? (i < instructions.len) : (???) {
+
+    // operator operand and a white space
+    inline while (i < instructions.len) : (i += 3) {
 
         // This gets the digit from the "instruction". Can you
         // figure out why we subtract '0' from it?
-        comptime var digit = instructions[i + 1] - '0';
+
+        // Use wrapping arithmetic
+        // error: operation caused overflow
+        // https://www.lagerdata.com/articles/preventing-integer-overflow-in-zig
+        const ascii_digit = instructions[i + 1];
+        // convert a single digit to number
+        comptime var digit = ascii_digit -% '0';
+        // @compileLog("ascii", ascii_digit);
+        // @compileLog("digit", digit);
 
         // This 'switch' statement contains the actual work done
         // at runtime. At first, this doesn't seem exciting...

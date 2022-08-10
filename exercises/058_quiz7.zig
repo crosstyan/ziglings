@@ -104,6 +104,8 @@ const Path = struct {
 // us write code that runs at compile time to "automate" repetitive
 // code (much like macros in other languages), but we haven't learned
 // how to do that yet!
+
+// I'm too dumb to do it
 const a_paths = [_]Path{
     Path{
         .from = &a, // from: Archer's Point
@@ -192,8 +194,8 @@ const TripItem = union(enum) {
             // Oops! The hermit forgot how to capture the union values
             // in a switch statement. Please capture both values as
             // 'p' so the print statements work!
-            .place => print("{s}", .{p.name}),
-            .path => print("--{}->", .{p.dist}),
+            .place => |p| print("{s}", .{p.name}),
+            .path => |p| print("--{}->", .{p.dist}),
         }
     }
 };
@@ -255,7 +257,10 @@ const HermitsNotebook = struct {
             // dereference and optional value "unwrapping" look
             // together. Remember that you return the address with the
             // "&" operator.
-            if (place == entry.*.?.place) return entry;
+            const eq: bool = entry.* != null and place == entry.*.?.place;
+            // https://github.com/ziglang/zig/issues/10674
+            // fuck this wastin' time above
+            if (eq) return &(entry.*.?);
             // Try to make your answer this long:__________;
         }
         return null;
@@ -306,10 +311,11 @@ const HermitsNotebook = struct {
     // suppose could happen if we allocated the array in this
     // function's stack frame (the space allocated for a function's
     // "local" data) and returned a pointer or slice to it?
+    // IDK. the pointee will gone/become trash and the pointer will be dangling.
     //
     // Looks like the hermit forgot something in the return value of
     // this function. What could that be?
-    fn getTripTo(self: *HermitsNotebook, trip: []?TripItem, dest: *Place) void {
+    fn getTripTo(self: *HermitsNotebook, trip: []?TripItem, dest: *Place) !void {
         // We start at the destination entry.
         const destination_entry = self.getEntry(dest);
 

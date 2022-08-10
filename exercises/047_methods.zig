@@ -4,7 +4,7 @@
 //
 // Before you jump into battle, you'll need to know four things:
 //
-// 1. You can attach functions to structs:
+// 1. You can attach functions to structs: (Just like out old friend Go lang)
 //
 //     const Foo = struct{
 //         pub fn hello() void {
@@ -89,7 +89,7 @@ pub fn main() void {
         for (aliens) |*alien| {
 
             // *** Zap the alien with the heat ray here! ***
-            ???.zap(???);
+            heat_ray.zap(alien);
 
             // If the alien's health is still above 0, it's still alive.
             if (alien.health > 0) aliens_alive += 1;

@@ -15,7 +15,7 @@
 //
 const std = @import("std");
 
-const Insect = union(InsectStat) {
+const Insect = union(enum) {
     flowers_visited: u16,
     still_alive: bool,
 };
@@ -52,3 +52,8 @@ fn printInsect(insect: Insect) void {
 // recently becoming mainstream, particularly in system-level
 // programming languages. You might have also seen them called
 // "variants", "sum types", or even "enums"!
+// 
+// Variant is a type that represents a choice between several
+// alternatives.
+// -- by copilot
+

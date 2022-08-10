@@ -34,13 +34,15 @@
 
 const print = @import("std").debug.print;
 
+// 0.1 + 0.2 != 0.3 in IEEE
 pub fn main() void {
     // The approximate weight of the Space Shuttle upon liftoff
     // (including boosters and fuel tank) was 2,200 tons.
     //
     // We'll convert this weight from tons to kilograms at a
     // conversion of 907.18kg to the ton.
-    var shuttle_weight: f16 = 907.18 * 2200;
+    const T = f32;
+    var shuttle_weight: T = 907.18 * @intToFloat(T, 2200);
 
     // By default, float values are formatted in scientific
     // notation. Try experimenting with '{d}' and '{d:.3}' to see

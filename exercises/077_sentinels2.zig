@@ -13,6 +13,8 @@
 // zero-terminated (null-terminated) fixed-size array of u8".
 //
 // Now you know. You've earned it. Welcome to the secret club!
+// 
+// I already knew it when I was in the fucking C CLUB!
 //
 // ------------------------------------------------------------
 //
@@ -60,7 +62,8 @@ pub fn main() void {
     // length... You've actually solved this problem before!
     //
     // Here's a big hint: do you remember how to take a slice?
-    const printable = ???;
+    // const printable: []const u8 = foo.data[0..foo.length];
+    const printable = @ptrCast(* const [foo.length]u8, foo.data);
 
     print("{s}\n", .{printable});
 }

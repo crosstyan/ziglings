@@ -11,9 +11,12 @@ const print = @import("std").debug.print;
 
 pub fn main() void {
     const n = 5;
+    // what's the meaning of this shit?
+    comptime var i = 5;
     var foo_frame = async foo(n);
 
-    ???
+    inline while(i > 0): (i -= 1) resume foo_frame;
+
 
     print("\n", .{});
 }

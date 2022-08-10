@@ -9,12 +9,16 @@
 // a known length. The pointer doesn't. It is up to YOU to keep track
 // of the number of u8s foo_ptr points to!
 //
+
+// WHAT? ME? I DON'T KNOW WHAT I'M DOING!
 const std = @import("std");
 
 pub fn main() void {
     // Take a good look at the array type to which we're coercing
     // the zen12 string (the REAL nature of strings will be
     // revealed when we've learned some additional features):
+
+    // Good old C like string. Just a pointer to a bunch of u8s.
     const zen12: *const [21]u8 = "Memory is a resource.";
     //
     //   It would also have been valid to coerce to a slice:
@@ -32,7 +36,7 @@ pub fn main() void {
     // we can CONVERT IT TO A SLICE. (Hint: we do know the length!)
     //
     // Please fix this line so the print statement below can print it:
-    const zen12_string: []const u8 = zen_manyptr;
+    const zen12_string: []const u8 = zen_manyptr[0..zen12.len];
 
     // Here's the moment of truth!
     std.debug.print("{s}\n", .{zen12_string});

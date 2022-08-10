@@ -31,12 +31,14 @@ pub fn main() void {
     // 'letters' with the variable 'x'. As you can see above, x=1
     // to begin with.
     lang[0] = letters[x];
+    lang[1] = letters[x + 2];
+    lang[2] = letters[x + 4];
 
-    x = 3;
-    lang[???] = letters[x];
+    // x = 3;
+    // lang[???] = letters[x];
 
-    x = ???;
-    lang[2] = letters[???];
+    // x = ???;
+    // lang[2] = letters[???];
 
     // We want to "Program in Zig!" of course:
     std.debug.print("Program in {s}!\n", .{lang});

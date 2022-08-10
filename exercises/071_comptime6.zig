@@ -40,7 +40,10 @@ pub fn main() void {
 
     const fields = @typeInfo(Narcissus).Struct.fields;
 
-    ??? {
+    // what the dot is for
+    // Anonymous List Literals?
+    // https://ziglang.org/documentation/0.6.0/#Anonymous-Struct-Literals
+    inline for (fields) |field| {
         if (field.field_type != void) {
             print(" {s}", .{field.name});
         }

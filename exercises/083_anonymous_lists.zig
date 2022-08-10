@@ -20,6 +20,8 @@ pub fn main() void {
     //
     //     = .{'h', 'e', 'l', 'l', 'o'};
     //
-    const hello = .{'h', 'e', 'l', 'l', 'o'};
+
+    // error: array literal requires address-of operator (&) to coerce to slice type '[]u8'
+    const hello: [] const u8 = &.{'h', 'e', 'l', 'l', 'o'};
     print("I say {s}!\n", .{hello});
 }

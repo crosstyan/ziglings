@@ -4,6 +4,9 @@
 //     var foo: u8 = if (true) 5 else 0;
 //
 // Zig also lets you use for and while loops as expressions.
+
+// PS: I love this! It's functional.
+
 //
 // Like 'return' for functions, you can return a value from a
 // loop block with break:
@@ -16,8 +19,8 @@
 // 'else' clause is evaluated when: 1) a 'while' condition becomes
 // false or 2) a 'for' loop runs out of items.
 //
-//     const two: u8 = while (true) break 2 else 0;         // 2
-//     const three: u8 = for ([1]u8{1}) |f| break 3 else 0; // 3
+//     const two: u8 = while (true) { break 2; } else 0;         // 2
+//     const three: u8 = for ([1]u8{1}) |f| { break 3; } else 0; // 3
 //
 // If you do not provide an else clause, an empty one will be
 // provided for you, which will evaluate to the void type, which
@@ -47,11 +50,21 @@ pub fn main() void {
     // return it from the for loop.
     const current_lang: ?[]const u8 = for (langs) |lang| {
         if (lang.len == 3) break lang;
-    };
+    } else null;
 
     if (current_lang) |cl| {
         print("Current language: {s}\n", .{cl});
     } else {
         print("Did not find a three-letter language name. :-(\n", .{});
     }
+}
+
+// https://ikrima.dev/dev-notes/zig/zig-crash-course/
+fn rangeHasNumber(begin: usize, end: usize, number: usize) bool {
+  var i = begin;
+  return while (i < end) : (i += 1) {
+    if (i == number) {
+      break true;
+    }
+  } else false;
 }

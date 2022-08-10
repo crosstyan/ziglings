@@ -3,7 +3,8 @@
 // longer capturing a return value from foo() because the 'async'
 // keyword returns the frame instead.
 //
-// One way to solve this is to use a global variable.
+// One way to solve this is to use a global variable. (NO!!!!!!!!!!!)
+// Give me a channel at least
 //
 // See if you can make this program print "1 2 3 4 5".
 //
@@ -16,7 +17,7 @@ pub fn main() void {
 
     while (global_counter <= 5) {
         print("{} ", .{global_counter});
-        ???
+        resume foo_frame;
     }
 
     print("\n", .{});
@@ -24,7 +25,7 @@ pub fn main() void {
 
 fn foo() void {
     while (true) {
-        ???
-        ???
+        global_counter += 1;
+        suspend {}
     }
 }

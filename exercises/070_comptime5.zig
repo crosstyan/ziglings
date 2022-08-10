@@ -13,6 +13,14 @@
 // about the type that has been passed in. All of this logic will
 // be performed entirely at compile time.
 //
+
+// What about the trait/typeclass thing?
+// Interface?
+
+// No function overload? We got method (like thing)
+// But I still don't think "anytype" is a good idea
+// I want trait!
+
 const print = @import("std").debug.print;
 
 // Let's define three structs: Duck, RubberDuck, and Duct. Notice
@@ -123,8 +131,8 @@ fn isADuck(possible_duck: anytype) bool {
     // Please make sure MyType has both waddle() and quack()
     // methods:
     const MyType = @TypeOf(possible_duck);
-    const walks_like_duck = ???;
-    const quacks_like_duck = ???;
+    const walks_like_duck = @hasDecl(MyType, "waddle");
+    const quacks_like_duck = @hasDecl(MyType, "quack");
 
     const is_duck = walks_like_duck and quacks_like_duck;
 
@@ -140,6 +148,7 @@ fn isADuck(possible_duck: anytype) bool {
         // error, not a runtime panic or crash!
         possible_duck.quack();
     }
+    // I want reflection!
 
     return is_duck;
 }
